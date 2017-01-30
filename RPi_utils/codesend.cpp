@@ -29,6 +29,7 @@ int main(int argc, char *argv[]) {
     // Parse the first parameter to this command as an integer
     int protocol = 0; // A value of 0 will use rc-switch's default value
     int pulseLength = 0;
+    int codelength = 24;
 
     // If no command line argument is given, print the help text
     if (argc == 1) {
@@ -36,6 +37,7 @@ int main(int argc, char *argv[]) {
         printf("decimalcode\t- As decoded by RFSniffer\n");
         printf("protocol\t- According to rc-switch definitions\n");
         printf("pulselength\t- pulselength in microseconds\n");
+        printf("codelength\t- Codelength in bits\n");
         return -1;
     }
 
@@ -43,6 +45,7 @@ int main(int argc, char *argv[]) {
     int code = atoi(argv[1]);
     if (argc >= 3) protocol = atoi(argv[2]);
     if (argc >= 4) pulseLength = atoi(argv[3]);
+    if (argc >= 5) codelength = atoi(argv[4]);
     
     if (wiringPiSetup () == -1) return 1;
     printf("sending code[%i]\n", code);
@@ -51,7 +54,7 @@ int main(int argc, char *argv[]) {
     if (pulseLength != 0) mySwitch.setPulseLength(pulseLength);
     mySwitch.enableTransmit(PIN);
     
-    mySwitch.send(code, 24);
+    mySwitch.send(code, codelength);
     
     return 0;
 
