@@ -55,7 +55,7 @@ int main(int argc, char *argv[]) {
     if (pulseLength != 0) mySwitch.setPulseLength(pulseLength);
     mySwitch.enableTransmit(PIN);
     
-    mySwitch.send(code);
+    mySwitch.sendNexa(code);
     
     return 0;
 
